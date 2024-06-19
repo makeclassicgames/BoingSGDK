@@ -30,6 +30,7 @@ struct
 } Game;
 
 //general Functions
+void initGame();
 void updateGame();
 void drawGame();
 

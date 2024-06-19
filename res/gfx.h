@@ -2,8 +2,7 @@
 #define _RES_GFX_H_
 
 extern const Image table;
-extern const SpriteDefinition bat1;
-extern const SpriteDefinition bat2;
-extern const SpriteDefinition ball;
+extern const Image menu;
+extern const Image over;
 
 #endif // _RES_GFX_H_
