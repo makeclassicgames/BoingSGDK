@@ -26,7 +26,7 @@ typedef struct
     PlayerMode playerMode;
 } Player;
 
-void initPlayer(Player *, u16 , u16 , PlayerMode ,Sprite*);
+void initPlayer(Player *, u16 , u16 , PlayerMode);
 
 void updatePlayer(Player *, Input);
 

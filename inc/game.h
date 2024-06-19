@@ -2,6 +2,7 @@
 #define _H_GAME
 
 #include <genesis.h>
+#include "globals.h"
 #include "player.h"
 
 
@@ -15,10 +16,13 @@ typedef enum state
 
 typedef struct
 {
+    Sprite * sprite;
     u16 x;
     u16 y;
     u16 dx;
     u16 dy;
+    bool launched;
+    bool impact;
 } Ball;
 
 struct
@@ -27,6 +31,7 @@ struct
     Player player2;
     Ball ball;
     Status state;
+    bool singlePlayer;
 } Game;
 
 //general Functions
@@ -52,7 +57,6 @@ void drawGameOver();
 
 //Input Functions
 Input checkInput(u16 joyPad);
-
 //Collisions Functions
 
 

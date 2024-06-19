@@ -1,12 +1,10 @@
 #include "player.h"
 
 
-void initPlayer(Player * output, u16 x, u16 y ,PlayerMode playerMode, Sprite* sprite){
-    output->sprite=sprite;
+void initPlayer(Player * output, u16 x, u16 y ,PlayerMode playerMode){
     output->x=x;
     output->y=y;
     output->playerMode=playerMode;
-    output->sprite=sprite;
     output->score=0;
 }
 
