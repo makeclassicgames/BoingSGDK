@@ -5,7 +5,7 @@
 
 #define PLAYER_SPEED 3
 
-#define BALL_SPEED 5
+#define BALL_SPEED 4
 
 #define PADDLE_WIDTH 8
 #define PADDLE_HEIGHT 57
@@ -20,7 +20,7 @@
 #define LATERAL_EDGE_WIDTH 8
 #define LATERAL_EDGE_HEIGHT 224
 
-#define CHANGE_SING(n) return -n
+#define CHANGE_SING(n) -n
 
 //Check Collisions
 bool isTouchingTop(u16, u16,u16,u16);

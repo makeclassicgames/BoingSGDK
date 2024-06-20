@@ -96,9 +96,3 @@ bool isTouchingRightEdge(u16 x,u16 y,u16 width,u16 height){
     else
         return FALSE;
 }
-
-bool isTouchingPaddle(u16 x, u16 y, u16 width, u16 height)
-{
-
-    return FALSE;
-}

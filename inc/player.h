@@ -29,6 +29,8 @@ typedef struct
 
 void initPlayer(Player *, u16 , u16 , PlayerMode);
 
+s8 isTouchingPaddle(Player *, u16,u16,u16,u16);
+
 //Only For game Loop
 void updatePlayer(Player *);
 
