@@ -15,6 +15,9 @@ void update();
 
 void draw();
 
+void checkInputs();
+
+
 int main()
 {
     // Initial State Menu
@@ -31,8 +34,9 @@ int main()
     while (1)
     {
 
-        update();
-        draw();
+        checkInputs();
+        updateGame();
+        drawGame();
         // update Sprites and wait vblank
         SPR_update();
         SYS_doVBlankProcess();
@@ -40,34 +44,15 @@ int main()
     return (0);
 }
 
-void update()
-{
 
-    switch (Game.state)
-    {
-    case MENU:
-    case INIT_GAME:
-        // init game
-        initGame();
-        break;
 
-    default:
-        break;
+void checkInputs(){
+    Game.player1.input=checkGamepadInput(JOY_1);
+    if(Game.player2.playerMode==PLAYER){
+        Game.player2.input=checkGamepadInput(JOY_2);
     }
+    //TODO: IA Mode
+    
 }
 
-void draw()
-{
 
-    switch (Game.state)
-    {
-    case MENU:
-    case INIT_GAME:
-        drawInitializedGame();
-        Game.state = LOOP_GAME;
-        break;
-
-    default:
-        break;
-    }
-}

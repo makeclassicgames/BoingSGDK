@@ -4,6 +4,7 @@
 #include <genesis.h>
 #include "globals.h"
 #include "player.h"
+#include "physics.h"
 
 
 typedef enum state
@@ -11,16 +12,17 @@ typedef enum state
     MENU,
     INIT_GAME,
     LOOP_GAME,
-    GAME_OVER
+    GAME_OVER,
+    PAUSE
 } Status;
 
 typedef struct
 {
     Sprite * sprite;
-    u16 x;
-    u16 y;
-    u16 dx;
-    u16 dy;
+    s16 x;
+    s16 y;
+    s16 dx;
+    s16 dy;
     bool launched;
     bool impact;
 } Ball;
@@ -31,11 +33,11 @@ struct
     Player player2;
     Ball ball;
     Status state;
+    u8 lastScore;
     bool singlePlayer;
 } Game;
 
 //general Functions
-void initGame();
 void updateGame();
 void drawGame();
 
@@ -56,7 +58,7 @@ void updateGameOver();
 void drawGameOver();
 
 //Input Functions
-Input checkInput(u16 joyPad);
+Input checkGamepadInput(u16);
 //Collisions Functions
 
 
