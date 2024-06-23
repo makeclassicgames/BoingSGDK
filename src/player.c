@@ -21,6 +21,8 @@ void updatePlayer(Player *player)
         if (!isTouchingBottom(player->x+10, player->y+2,PADDLE_WIDTH,PADDLE_HEIGHT))
             player->y += PLAYER_SPEED;
         break;
+    default:
+        break;
     }
 }
 

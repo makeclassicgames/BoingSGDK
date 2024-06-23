@@ -21,7 +21,7 @@ void checkInputs();
 int main()
 {
     // Initial State Menu
-    Game.state = MENU;
+    Game.state = INIT_MENU;
     // init variables and Game
     VDP_setScreenWidth320();
     JOY_init();

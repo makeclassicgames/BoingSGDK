@@ -13,9 +13,6 @@ bool isBallNear(Ball*,Player*);
 void initGame()
 {
 
-    // TODO: change with menu selection
-    Game.singlePlayer = TRUE;
-
     // Init Player 1
     initPlayer(&Game.player1,
                PLAYER1_INITIAL_X,
@@ -110,7 +107,13 @@ void updateGame()
 {
     switch (Game.state)
     {
+    case INIT_MENU:
+        Game.singlePlayer=FALSE;
+        Menu.twoPlayers=FALSE;
+        break;
     case MENU:
+        updateMenu();
+        break;
     case INIT_GAME:
         // init game
         initGame();
@@ -128,6 +131,8 @@ void updateGame()
     }
 }
 
+
+
 void updateLoop()
 {
     checkPauseGame();
@@ -144,7 +149,11 @@ void updateBall()
         if (Game.player1.input == A)
         {
 
-            Game.ball.dx = -BALL_SPEED;
+            if(Game.lastScore%2==0){
+                Game.ball.dx = -BALL_SPEED;
+            }else{
+                Game.ball.dx = BALL_SPEED;
+            }
             Game.ball.dy = -BALL_SPEED;
             Game.ball.launched = TRUE;
         }
@@ -167,7 +176,7 @@ void updateBall()
         if (isTouchingLeftEdge(Game.ball.x + 8, Game.ball.y + 8, 13, 13))
         {
             // Player 1 Goal
-            Game.lastScore = 2;
+            Game.lastScore = 1;
             Game.player2.score++;
             if(Game.player2.score>=MAX_SCORE){
                 deInitGame();
@@ -179,7 +188,7 @@ void updateBall()
         if (isTouchingRightEdge(Game.ball.x + 8, Game.ball.y + 8, 13, 13))
         {
             // Player 2 Goal
-            Game.lastScore = 1;
+            Game.lastScore = 2;
             Game.player1.score++;
             if(Game.player1.score>=MAX_SCORE){
                 deInitGame();
@@ -197,6 +206,7 @@ void updateBall()
 void updateGameOver(){
     if(Game.player1.input==START){
         Game.state=MENU;
+        VDP_clearPlane(BG_A,TRUE);
     }
 }
 
@@ -252,7 +262,14 @@ void drawGame()
 {
     switch (Game.state)
     {
+    case INIT_MENU:
+        drawInitMenu();
+        Game.state=MENU;
+        Menu.twoPlayers=1;
+        break;
     case MENU:
+        drawMenu();
+        break;
     case INIT_GAME:
         drawInitializedGame();
         Game.state = LOOP_GAME;
@@ -287,9 +304,9 @@ void drawInitializedGame()
     Game.player2.sprite = SPR_addSprite(&bat1, Game.player2.x, Game.player2.y, TILE_ATTR(PAL2, FALSE, FALSE, TRUE));
     Game.ball.sprite = SPR_addSprite(&ball, Game.ball.x, Game.ball.y, TILE_ATTR(PAL3, FALSE, FALSE, FALSE));
     Game.player1.points = SPR_addSprite(&marc1,24,32,TILE_ATTR(PAL1,TRUE,FALSE,FALSE));
-    SPR_setAnim(Game.player1.points,Game.player1.score);
+    SPR_setAnim(Game.player1.points,0);
     Game.player2.points = SPR_addSprite(&marc1,296,32,TILE_ATTR(PAL2,TRUE,FALSE,FALSE));
-    SPR_setAnim(Game.player2.points,Game.player2.score);
+    SPR_setAnim(Game.player2.points,0);
 }
 
 void drawLoop()

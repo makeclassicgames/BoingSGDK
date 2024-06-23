@@ -10,6 +10,7 @@
 
 typedef enum state
 {
+    INIT_MENU,
     MENU,
     INIT_GAME,
     LOOP_GAME,
@@ -38,9 +39,18 @@ struct
     bool singlePlayer;
 } Game;
 
+struct{
+    Sprite * selector1;
+    Sprite * selector2;
+    bool twoPlayers;
+}Menu;
+
 //general Functions
 void updateGame();
 void drawGame();
+
+//InitMenu
+void drawInitMenu();
 
 //Init Game Functions
 void updateMenu();
