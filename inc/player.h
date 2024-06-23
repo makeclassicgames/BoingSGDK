@@ -20,9 +20,10 @@ typedef enum player_mode{
 typedef struct
 {
     Sprite *sprite;
+    Sprite *points;
     u16 x;
     u16 y;
-    u8 score;
+    s16 score;
     Input input;
     PlayerMode playerMode;
 } Player;
@@ -37,5 +38,7 @@ void updatePlayer(Player *);
 void updateMenuPlayer(Player* );
 
 void drawPlayer(Player *);
+
+void deInitPlayer(Player *);
 
 #endif

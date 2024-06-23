@@ -50,9 +50,9 @@ void checkInputs(){
     Game.player1.input=checkGamepadInput(JOY_1);
     if(Game.player2.playerMode==PLAYER){
         Game.player2.input=checkGamepadInput(JOY_2);
+    }else{
+        Game.player2.input=iaInput();
     }
-    //TODO: IA Mode
-    
 }
 
 

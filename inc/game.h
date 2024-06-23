@@ -6,6 +6,7 @@
 #include "player.h"
 #include "physics.h"
 
+#define MAX_SCORE 10
 
 typedef enum state
 {
@@ -57,8 +58,13 @@ void drawLoop();
 void updateGameOver();
 void drawGameOver();
 
+//Restart Game Options
+void restartGame();
+void deInitGame();
+
 //Input Functions
 Input checkGamepadInput(u16);
+Input iaInput();
 //Collisions Functions
 
 

@@ -62,4 +62,10 @@ s8 isTouchingPaddle(Player * player, u16 x,u16 y,u16 width,u16 height){
 
 void drawPlayer(Player * player){
     SPR_setPosition( player->sprite,player->x,player->y);
+    SPR_setFrame(player->points,player->score);
+}
+
+void deInitPlayer(Player* player){
+    SPR_releaseSprite(player->sprite);
+    SPR_releaseSprite(player->points);
 }

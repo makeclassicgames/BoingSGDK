@@ -6,14 +6,15 @@
 void updateBall();
 void paddleTouched(s8 touched);
 void drawBall();
-void restartGame();
 void checkPauseGame();
+
+bool isBallNear(Ball*,Player*);
 
 void initGame()
 {
 
     // TODO: change with menu selection
-    Game.singlePlayer = FALSE;
+    Game.singlePlayer = TRUE;
 
     // Init Player 1
     initPlayer(&Game.player1,
@@ -74,6 +75,19 @@ Input checkGamepadInput(u16 joyPad)
     return NONE;
 }
 
+Input iaInput() {
+    //Check if the ball is near the Player
+
+    if(!isBallNear(&Game.ball,&Game.player2) && Game.ball.launched){
+        if(Game.ball.dy<0){
+            return UP;
+        }else{
+            return DOWN;
+        }
+    }
+    return NONE;
+}
+
 void checkPauseGame()
 {
     if (Game.player1.input == START || Game.player2.input == START)
@@ -104,8 +118,11 @@ void updateGame()
     case LOOP_GAME:
         updateLoop();
         break;
+    case GAME_OVER:
+        updateGameOver();
     case PAUSE:
         checkPauseGame();
+        break;
     default:
         break;
     }
@@ -145,24 +162,41 @@ void updateBall()
         // touching paddle
         s8 touchingPaddle1 = isTouchingPaddle(&Game.player1, Game.ball.x + 8, Game.ball.y + 8, 13, 13);
         paddleTouched(touchingPaddle1);
-        s8 touchingPaddle2 = isTouchingPaddle(&Game.player2,Game.ball.x+8, Game.ball.y+8,13,13);
+        s8 touchingPaddle2 = isTouchingPaddle(&Game.player2, Game.ball.x + 8, Game.ball.y + 8, 13, 13);
         paddleTouched(touchingPaddle2);
         if (isTouchingLeftEdge(Game.ball.x + 8, Game.ball.y + 8, 13, 13))
         {
             // Player 1 Goal
             Game.lastScore = 2;
             Game.player2.score++;
-            restartGame();
+            if(Game.player2.score>=MAX_SCORE){
+                deInitGame();
+                Game.state=GAME_OVER;
+            }else{
+                  restartGame();
+            }
         }
         if (isTouchingRightEdge(Game.ball.x + 8, Game.ball.y + 8, 13, 13))
         {
             // Player 2 Goal
             Game.lastScore = 1;
             Game.player1.score++;
-            restartGame();
+            if(Game.player1.score>=MAX_SCORE){
+                deInitGame();
+                Game.state=GAME_OVER;
+            }else{
+                  restartGame();
+            }
+          
         }
         Game.ball.x += Game.ball.dx;
         Game.ball.y += Game.ball.dy;
+    }
+}
+
+void updateGameOver(){
+    if(Game.player1.input==START){
+        Game.state=MENU;
     }
 }
 
@@ -178,6 +212,41 @@ void paddleTouched(s8 touchingPaddle)
     }
 }
 
+bool isBallNear(Ball* ball, Player* player){
+    //box 1(Ball)
+
+    u16 box1_x1 = ball->x+8;
+    u16 box1_y1 = ball->y+8;
+    u16 box1_x2 = ball->x + 13;
+    u16 box1_y2 = ball->y + 13;
+
+    //box2(near Paddle (x-20,y),(width, height))
+
+    u16 box2_x1 = player->x-20;
+    u16 box2_y1 = player->y;
+    u16 box2_x2 = player->x + PADDLE_WIDTH;
+    u16 box2_y2 = player->y + PADDLE_HEIGHT;
+
+    if ((box1_x1 <= box2_x2) &&
+        (box1_x2 >= box2_x1) &&
+        (box1_y1 <= box2_y2) &&
+        (box1_y2 >= box2_y1))
+        return TRUE;
+    else
+        return FALSE;
+   
+
+}
+
+void deInitGame(){
+    deInitPlayer(&Game.player1);
+    deInitPlayer(&Game.player2);
+    SPR_releaseSprite(Game.ball.sprite);
+    VDP_clearPlane(BG_A,TRUE);
+
+}
+
+
 //------------------------------------ DRAW------------------------------------------------
 void drawGame()
 {
@@ -190,6 +259,9 @@ void drawGame()
         break;
     case LOOP_GAME:
         drawLoop();
+        break;
+    case GAME_OVER:
+        drawGameOver();
         break;
     case PAUSE:
     // TODO Show Pause
@@ -214,6 +286,10 @@ void drawInitializedGame()
     Game.player1.sprite = SPR_addSprite(&bat1, Game.player1.x, Game.player1.y, TILE_ATTR(PAL1, FALSE, FALSE, FALSE));
     Game.player2.sprite = SPR_addSprite(&bat1, Game.player2.x, Game.player2.y, TILE_ATTR(PAL2, FALSE, FALSE, TRUE));
     Game.ball.sprite = SPR_addSprite(&ball, Game.ball.x, Game.ball.y, TILE_ATTR(PAL3, FALSE, FALSE, FALSE));
+    Game.player1.points = SPR_addSprite(&marc1,24,32,TILE_ATTR(PAL1,TRUE,FALSE,FALSE));
+    SPR_setAnim(Game.player1.points,Game.player1.score);
+    Game.player2.points = SPR_addSprite(&marc1,296,32,TILE_ATTR(PAL2,TRUE,FALSE,FALSE));
+    SPR_setAnim(Game.player2.points,Game.player2.score);
 }
 
 void drawLoop()
@@ -227,4 +303,13 @@ void drawBall()
 {
     SPR_setPosition(Game.ball.sprite, Game.ball.x, Game.ball.y);
     // TODO: Create Impact Sprite
+    
+}
+
+void drawGameOver(){
+    SYS_disableInts();
+    u16 index=TILE_USER_INDEX;
+    VDP_drawImageEx(BG_A, &over, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, index), 0, 0, true, DMA);
+    index += table.tileset->numTile;
+    SYS_enableInts();
 }
