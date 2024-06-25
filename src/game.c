@@ -205,7 +205,7 @@ void updateBall()
 
 void updateGameOver(){
     if(Game.player1.input==START){
-        Game.state=MENU;
+        Game.state=INIT_MENU;
         VDP_clearPlane(BG_A,TRUE);
     }
 }
