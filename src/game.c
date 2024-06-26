@@ -225,26 +225,17 @@ void paddleTouched(s8 touchingPaddle)
 bool isBallNear(Ball* ball, Player* player){
     //box 1(Ball)
 
-    u16 box1_x1 = ball->x+8;
-    u16 box1_y1 = ball->y+8;
-    u16 box1_x2 = ball->x + 13;
-    u16 box1_y2 = ball->y + 13;
+    BoxCollider box1={ball->x+8, ball->y+8,13,13};
 
+    
     //box2(near Paddle (x-20,y),(width, height))
+    BoxCollider box2={player->x-20,player->y,PADDLE_WIDTH,PADDLE_HEIGHT};
+   
 
-    u16 box2_x1 = player->x-20;
-    u16 box2_y1 = player->y;
-    u16 box2_x2 = player->x + PADDLE_WIDTH;
-    u16 box2_y2 = player->y + PADDLE_HEIGHT;
-
-    if ((box1_x1 <= box2_x2) &&
-        (box1_x2 >= box2_x1) &&
-        (box1_y1 <= box2_y2) &&
-        (box1_y2 >= box2_y1))
+    if (isColliding(&box1,&box2))
         return TRUE;
     else
         return FALSE;
-   
 
 }
 

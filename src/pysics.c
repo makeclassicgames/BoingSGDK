@@ -1,20 +1,19 @@
 #include "physics.h"
 
-bool isTouchingTop(u16 x, u16 y, u16 width, u16 height)
-{
+bool isColliding(BoxCollider * box1, BoxCollider * box2){
     // check Box Collision with Top Edge
     // Box 1
-    u16 box1_x1 = x;
-    u16 box1_y1 = y;
-    u16 box1_x2 = x + width;
-    u16 box1_y2 = y + height;
+    u16 box1_x1 = box1->x;
+    u16 box1_y1 = box1->y;
+    u16 box1_x2 = box1->x + box1->w;
+    u16 box1_y2 = box1->y + box1->h;
 
     // Box 2
 
-    u16 box2_x1 = TOP_EDGE;
-    u16 box2_y1 = TOP_EDGE;
-    u16 box2_x2 = TOP_EDGE + EDGE_WIDTH;
-    u16 box2_y2 = TOP_EDGE + EDGE_HEIGHT;
+    u16 box2_x1 = box2->x;
+    u16 box2_y1 = box2->y;
+    u16 box2_x2 = box2->x + box2->w;
+    u16 box2_y2 = box2->y + box2->h;
 
     if ((box1_x1 <= box2_x2) &&
         (box1_x2 >= box2_x1) &&
@@ -23,76 +22,48 @@ bool isTouchingTop(u16 x, u16 y, u16 width, u16 height)
         return TRUE;
     else
         return FALSE;
+}
+ 
+
+bool isTouchingTop(u16 x, u16 y, u16 width, u16 height)
+{
+    // check Box Collision with Top Edge
+    //BOx1
+    BoxCollider box1={x,y,width,height};
+    // Box 2
+    BoxCollider box2={TOP_EDGE,TOP_EDGE,EDGE_WIDTH,EDGE_HEIGHT};
+
+    return isColliding(&box1,&box2);
 }
 
 bool isTouchingBottom(u16 x, u16 y, u16 width, u16 height)
 {
-    // Check Box Collision with Bottom Edge
-      // check Box Collision with Top Edge
-    // Box 1
-    u16 box1_x1 = x;
-    u16 box1_y1 = y;
-    u16 box1_x2 = x + width;
-    u16 box1_y2 = y + height;
-
+   // check Box Collision with Top Edge
+    //BOx1
+    BoxCollider box1={x,y,width,height};
     // Box 2
-
-    u16 box2_x1 = TOP_EDGE;
-    u16 box2_y1 = BOTTOM_EDGE;
-    u16 box2_x2 = TOP_EDGE + EDGE_WIDTH;
-    u16 box2_y2 = BOTTOM_EDGE + EDGE_HEIGHT;
+    BoxCollider box2={TOP_EDGE,BOTTOM_EDGE,EDGE_WIDTH,EDGE_HEIGHT};
     
-    if ((box1_x1 <= box2_x2) &&
-        (box1_x2 >= box2_x1) &&
-        (box1_y1 <= box2_y2) &&
-        (box1_y2 >= box2_y1))
-        return TRUE;
-    else
-        return FALSE;
+    return isColliding(&box1,&box2);
 }
 
 bool isTouchingLeftEdge(u16 x, u16 y, u16 width, u16 height){
-     // Box 1
-    u16 box1_x1 = x;
-    u16 box1_y1 = y;
-    u16 box1_x2 = x + width;
-    u16 box1_y2 = y + height;
 
+    // check Box Collision with Top Edge
+    //Box1
+    BoxCollider box1={x,y,width,height};
     // Box 2
-
-    u16 box2_x1 = LEFT_EDGE;
-    u16 box2_y1 = LEFT_EDGE;
-    u16 box2_x2 = LEFT_EDGE + LATERAL_EDGE_WIDTH;
-    u16 box2_y2 = LEFT_EDGE + LATERAL_EDGE_HEIGHT;
+    BoxCollider box2={LEFT_EDGE,LEFT_EDGE,LATERAL_EDGE_WIDTH,LATERAL_EDGE_HEIGHT};
     
-    if ((box1_x1 <= box2_x2) &&
-        (box1_x2 >= box2_x1) &&
-        (box1_y1 <= box2_y2) &&
-        (box1_y2 >= box2_y1))
-        return TRUE;
-    else
-        return FALSE;
+    return isColliding(&box1,&box2);
 }
 
 bool isTouchingRightEdge(u16 x,u16 y,u16 width,u16 height){
- // Box 1
-    u16 box1_x1 = x;
-    u16 box1_y1 = y;
-    u16 box1_x2 = x + width;
-    u16 box1_y2 = y + height;
-
+    // check Box Collision with Top Edge
+    //Box1
+    BoxCollider box1={x,y,width,height};
     // Box 2
+    BoxCollider box2={RIGHT_EDGE,0,LATERAL_EDGE_WIDTH,LATERAL_EDGE_HEIGHT};
 
-    u16 box2_x1 = RIGHT_EDGE;
-    u16 box2_y1 = 0;
-    u16 box2_x2 = RIGHT_EDGE + LATERAL_EDGE_WIDTH;
-    u16 box2_y2 = RIGHT_EDGE + LATERAL_EDGE_HEIGHT;
-    
-    if ((box1_x1 <= box2_x2) &&
-        (box1_x2 >= box2_x1) &&
-        (box1_y1 <= box2_y2) &&
-        (box1_y2 >= box2_y1))
-        return TRUE;
-    else
-        return FALSE;
+    return isColliding(&box1,&box2);
 }

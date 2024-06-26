@@ -22,6 +22,16 @@
 
 #define CHANGE_SING(n) -n
 
+typedef struct 
+{
+    u16 x;
+    u16 y;
+    u16 w;
+    u16 h;
+} BoxCollider;
+
+bool isColliding(BoxCollider *, BoxCollider *);
+
 //Check Collisions
 bool isTouchingTop(u16, u16,u16,u16);
 bool isTouchingBottom(u16,u16,u16,u16);
