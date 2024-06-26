@@ -25,6 +25,8 @@ int main()
     // init variables and Game
     VDP_setScreenWidth320();
     JOY_init();
+    XGM2_setFMVolume(70);
+    XGM2_setPSGVolume(80);
     SPR_init();
 
     /* Sprite * selector = SPR_addSprite(&menuSel,75,132,TILE_ATTR(PAL1,FALSE,FALSE,FALSE));

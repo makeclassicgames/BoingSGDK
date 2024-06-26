@@ -2,6 +2,7 @@
 
 #include "gfx.h"
 #include "sprt.h"
+#include "sound.h"
 
 void updateBall();
 void paddleTouched(s8 touched);
@@ -31,6 +32,7 @@ void initGame()
     Game.ball.x = BALL_INITIAL_X;
     Game.ball.y = BALL_INITIAL_Y;
     Game.ball.launched = FALSE;
+    Game.ball.bounced = FALSE;
     Game.ball.impact = FALSE;
 }
 
@@ -166,11 +168,13 @@ void updateBall()
         {
             Game.ball.dy = CHANGE_SING(Game.ball.dy);
             Game.ball.impact=TRUE;
+            Game.ball.bounced=TRUE;
         }
         if (isTouchingBottom(Game.ball.x + 8, Game.ball.y + 8, 13, 13))
         {
             Game.ball.dy = CHANGE_SING(Game.ball.dy);
             Game.ball.impact=TRUE;
+            Game.ball.bounced=TRUE;
         }
         // touching paddle
         s8 touchingPaddle1 = isTouchingPaddle(&Game.player1, Game.ball.x + 8, Game.ball.y + 8, 13, 13);
@@ -179,6 +183,7 @@ void updateBall()
         paddleTouched(touchingPaddle2);
         if (isTouchingLeftEdge(Game.ball.x + 8, Game.ball.y + 8, 13, 13))
         {
+            Game.ball.hit=TRUE;
             // Player 1 Goal
             Game.lastScore = 1;
             Game.player2.score++;
@@ -218,6 +223,7 @@ void paddleTouched(s8 touchingPaddle)
 {
     if (touchingPaddle)
     {
+        Game.ball.playerHit=TRUE;
         Game.ball.dx = CHANGE_SING(Game.ball.dx);
         if (touchingPaddle > 0)
         {
@@ -320,6 +326,19 @@ void drawBall()
        Game.ball.impactSprt= SPR_addSprite(&impact,Game.ball.x,Game.ball.y+4,TILE_ATTR(PAL1,FALSE,FALSE,FALSE));
        SPR_setFrameChangeCallback(Game.ball.impactSprt,disableImpact);
        Game.ball.impact=FALSE; 
+    }
+
+    if(Game.ball.bounced){
+        XGM2_playPCM(bounce,5120,SOUND_PCM_CH_AUTO);
+        Game.ball.bounced=FALSE;
+    }
+    if(Game.ball.hit){
+        XGM2_playPCM(hit,6912, SOUND_PCM_CH_AUTO);
+        Game.ball.hit=FALSE;
+    }
+    if(Game.ball.playerHit){
+        XGM2_playPCM(playerhit,6912, SOUND_PCM_CH_AUTO);
+        Game.ball.playerHit=FALSE;
     }
     
 }

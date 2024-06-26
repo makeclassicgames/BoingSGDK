@@ -27,6 +27,9 @@ typedef struct
     s16 dx;
     s16 dy;
     bool launched;
+    bool bounced;
+    bool hit;
+    bool playerHit;
     bool impact;
 } Ball;
 
