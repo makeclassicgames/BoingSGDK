@@ -8,6 +8,8 @@ void paddleTouched(s8 touched);
 void drawBall();
 void checkPauseGame();
 
+void disableImpact(Sprite * sprite);
+
 bool isBallNear(Ball*,Player*);
 
 void initGame()
@@ -150,11 +152,11 @@ void updateBall()
         {
 
             if(Game.lastScore%2==0){
-                Game.ball.dx = -BALL_SPEED;
+                Game.ball.dx = CHANGE_SING(BALL_SPEED);
             }else{
                 Game.ball.dx = BALL_SPEED;
             }
-            Game.ball.dy = -BALL_SPEED;
+            Game.ball.dy = CHANGE_SING(BALL_SPEED);
             Game.ball.launched = TRUE;
         }
     }
@@ -163,10 +165,12 @@ void updateBall()
         if (isTouchingTop(Game.ball.x + 8, Game.ball.y + 8, 13, 13))
         {
             Game.ball.dy = CHANGE_SING(Game.ball.dy);
+            Game.ball.impact=TRUE;
         }
         if (isTouchingBottom(Game.ball.x + 8, Game.ball.y + 8, 13, 13))
         {
             Game.ball.dy = CHANGE_SING(Game.ball.dy);
+            Game.ball.impact=TRUE;
         }
         // touching paddle
         s8 touchingPaddle1 = isTouchingPaddle(&Game.player1, Game.ball.x + 8, Game.ball.y + 8, 13, 13);
@@ -219,6 +223,7 @@ void paddleTouched(s8 touchingPaddle)
         {
             Game.ball.dy = CHANGE_SING(Game.ball.dy);
         }
+        Game.ball.impact=TRUE;
     }
 }
 
@@ -311,9 +316,19 @@ void drawBall()
 {
     SPR_setPosition(Game.ball.sprite, Game.ball.x, Game.ball.y);
     // TODO: Create Impact Sprite
+    if(Game.ball.impact){
+       Game.ball.impactSprt= SPR_addSprite(&impact,Game.ball.x,Game.ball.y+4,TILE_ATTR(PAL1,FALSE,FALSE,FALSE));
+       SPR_setFrameChangeCallback(Game.ball.impactSprt,disableImpact);
+       Game.ball.impact=FALSE; 
+    }
     
 }
 
+void disableImpact(Sprite * sprite){
+    if(sprite->frameInd==3){
+        SPR_releaseSprite(sprite);
+    }
+}
 void drawGameOver(){
     SYS_disableInts();
     u16 index=TILE_USER_INDEX;

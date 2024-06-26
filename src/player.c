@@ -36,7 +36,7 @@ s8 isTouchingPaddle(Player * player, u16 x,u16 y,u16 width,u16 height){
     BoxCollider box2={x,y,width,height/2};
 
     //Box 3 (Dower Paddle)
-    BoxCollider box3={player->x,player->y+PADDLE_HEIGHT/2,PADDLE_WIDTH,PADDLE_HEIGHT};
+    BoxCollider box3={player->x+10,player->y+PADDLE_HEIGHT/2,PADDLE_WIDTH,PADDLE_HEIGHT};
 
      if (isColliding(&box1,&box2))
         return -1;

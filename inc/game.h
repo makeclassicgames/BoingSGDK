@@ -21,6 +21,7 @@ typedef enum state
 typedef struct
 {
     Sprite * sprite;
+    Sprite * impactSprt;
     s16 x;
     s16 y;
     s16 dx;
