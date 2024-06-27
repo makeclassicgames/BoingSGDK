@@ -20,6 +20,8 @@ typedef struct
 {
     //Player's Sprite
     Sprite * sprite;
+    //Player's marquer Sprite
+    Sprite * marc;
     //X Coord
     u16 x;
     //Y Coord
@@ -38,4 +40,7 @@ void initPlayer(Player* ,u16,u16,PlayerMode);
 void updatePlayer(Player*);
 
 void drawPlayer(Player*);
+
+s8 isTouchingPaddle(Player*,u16, u16, u16, u16);
+
 #endif

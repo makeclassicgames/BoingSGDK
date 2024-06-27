@@ -45,7 +45,7 @@ void checkInputs(){
     if(!game.singlePlayer){
         game.player2.input=checkInput(JOY_2);
     }else{
-        //TODO: IA MODE
+        game.player2.input=iaInput();
     }
 }
 
@@ -60,6 +60,10 @@ void update()
         break;
     case LOOP_GAME:
         updateGame();
+        break;
+    case GAME_OVER:
+        updateGameOver();
+        break;
     default:
         break;
     }
@@ -77,6 +81,10 @@ void draw()
         break;
     case LOOP_GAME:
         drawGame();
+        break;
+    case GAME_OVER:
+        drawGameOver();
+        break;
     default:
         break;
     }

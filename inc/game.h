@@ -16,6 +16,7 @@
 
     typedef struct{
         Sprite * sprite;
+        Sprite * impactSpr;
         s16 x;
         s16 y;
         s16 dx;
@@ -40,6 +41,17 @@
     void drawGame();
 
     void drawInitGame();
+
+    void updateBall();
+
+    void drawBall();
+
+    void deInitGame();
+
+    void updateGameOver();
+    void drawGameOver();
+
     Input checkInput(u16);
+    Input iaInput();
 
 #endif
