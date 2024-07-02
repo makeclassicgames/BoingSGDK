@@ -2,6 +2,8 @@
 
 In this repository you can find the Game _Boing_ from the Book _Code The Classics Vol.1_ ported to Sega Mega Drive using [SGDK](https://github.com/Stephane-D/SGDK).
 
+![BoingMD](boing.png)
+
 Al the code above is commented and ported using the C Programming language.
 
 You can find the ROM of this game on the Release of this Repository.
