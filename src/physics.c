@@ -15,6 +15,7 @@ bool isColliding(BoxCollider *box1, BoxCollider *box2)
     u16 box2_x2 = box2->x + box2->w;
     u16 box2_y2 = box2->y + box2->h;
 
+    //Check Box Collision
     if ((box1_x1 <= box2_x2) &&
         (box1_x2 >= box2_x1) &&
         (box1_y1 <= box2_y2) &&
@@ -27,25 +28,34 @@ bool isColliding(BoxCollider *box1, BoxCollider *box2)
 }
 
 bool isTouchingTop(u16 x, u16 y, u16 width, u16 height){
+    //Box1 (Object)
     BoxCollider box1={x,y,width,height};
+    //Box2  (Top Edge)
     BoxCollider box2={TOP_EDGE,TOP_EDGE_Y,EDGE_WIDTH,EDGE_HEIGHT};
     return isColliding(&box1,&box2);
 }
 
 bool isTouchingBottom(u16 x, u16 y, u16 width, u16 height){
+    //Box1 (Object)
     BoxCollider box1={x,y,width,height};
+    //Box2 (Bottom Edge)
     BoxCollider box2={TOP_EDGE,BOTTOM_EDGE,EDGE_WIDTH,EDGE_HEIGHT};
     return isColliding(&box1,&box2);
 }
 
 bool isTouchingLeftEdge(u16 x,u16 y,u16 width,u16 height){
+    //Box1 (Object)
     BoxCollider box1={x,y,width,height};
+    //Box2 (Left Edge)
     BoxCollider box2={TOP_EDGE,TOP_EDGE,LATERAL_EDGE_WITH,LATERAL_EDGE_HEIGHT};
     return isColliding(&box1,&box2);
 }
 
 bool isTouchingRightEdge(u16 x,u16 y,u16 width,u16 height){
+
+    //Box1(Object)
     BoxCollider box1={x,y,width,height};
+    //Box2 (Right Edge)
     BoxCollider box2={LATERAL_EDE,0,LATERAL_EDGE_WITH,LATERAL_EDGE_HEIGHT};
     return isColliding(&box1,&box2);
 }
