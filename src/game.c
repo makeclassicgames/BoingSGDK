@@ -51,8 +51,8 @@ Input iaInput(){
 }
 
 bool isBallNear(Ball* ball, Player* player){
-    BoxCollision box1= {ball->x+8,ball->y+8,13,13};
-    BoxCollision box2 = {player->x-20,player->y,PADDLE_WIDTH,PADDLE_HEIGHT};
+    BoxCollider box1= {ball->x+8,ball->y+8,13,13};
+    BoxCollider box2 = {player->x-20,player->y,PADDLE_WIDTH,PADDLE_HEIGHT};
 
     return isColliding(&box1,&box2);
 }
