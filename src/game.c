@@ -79,7 +79,7 @@ void updateGame(){
 
 void updateGameOver(){
     if(game.player1.input==START){
-        game.state=MENU;
+        game.state=INIT_MENU;
     }
 }
 

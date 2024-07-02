@@ -44,6 +44,8 @@ void updateBall(){
             game.player1.score++;
             if(game.player1.score>9){
                 deInitGame();
+                game.player1.score=0;
+                game.player2.score=0;
                 game.state=GAME_OVER;
             }else{
                 restartGame();
@@ -77,7 +79,7 @@ void paddleTouched(s8 paddleTouch){
     if(paddleTouch){
         game.ball.impact=TRUE;
         game.ball.dx= CHANGE_SING(game.ball.dx);
-        if(paddleTouch>0){
+        if(paddleTouch<0){
             game.ball.dy=-BALL_SPEED;
         }else{
             game.ball.dy=BALL_SPEED;

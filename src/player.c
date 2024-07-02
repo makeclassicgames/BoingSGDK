@@ -21,7 +21,7 @@ void updatePlayer(Player * player){
 }
 
 s8 isTouchingPaddle(Player* player,u16 x, u16 y, u16 w, u16 h){
-    BoxCollider box1 = {player->x,player->y,PADDLE_WIDTH,PADDLE_HEIGHT/2};
+    BoxCollider box1 = {player->x+10,player->y+4,PADDLE_WIDTH,PADDLE_HEIGHT/2};
     BoxCollider box2= {x,y,w,h};
     BoxCollider box3={player->x+10,player->y+PADDLE_HEIGHT/2,PADDLE_WIDTH,PADDLE_HEIGHT/2};
 
