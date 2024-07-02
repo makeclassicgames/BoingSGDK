@@ -37,7 +37,7 @@ void init()
     XGM2_setFMVolume(80);
     XGM2_setPSGVolume(80);
     SPR_init();
-    game.state = INIT_MENU;
+    game.state = INIT_LOGO;
 }
 
 void checkInputs(){

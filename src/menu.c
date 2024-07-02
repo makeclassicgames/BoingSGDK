@@ -25,7 +25,7 @@
             menuStruct.twoPlayers++;
             break;
         case START:
-            if(menuStruct.twoPlayers%2==0){
+            if(menuStruct.twoPlayers%2!=0){
                 game.singlePlayer=FALSE;
             }else{
                 game.singlePlayer=TRUE;
@@ -36,7 +36,7 @@
         }
     }
     void drawMenu(void){
-        if(menuStruct.twoPlayers%2==0){
+        if(menuStruct.twoPlayers%2!=0){
             SPR_setPosition(menuStruct.menuSel1,75,162);
             SPR_setPosition(menuStruct.menuSel2,230,162);
         }else{

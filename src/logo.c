@@ -22,6 +22,6 @@ void drawLogo(void)
 {
     if(frameCounter>240){
         game.state=INIT_MENU;
-        PAL_fadeOut(0,16,30,TRUE);
+        PAL_fadeOut(0,16,30,FALSE);
     }
 }
