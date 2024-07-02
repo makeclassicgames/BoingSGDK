@@ -8,7 +8,7 @@ void InitLogo(void){
 void drawInitLogo(void){
     SYS_disableInts();
     PAL_setPalette(PAL0,logo.palette->data,DMA);
-    PAL_fadeIn(0,63,logo.palette->data,30,FALSE);
+    PAL_fadeIn(0,16,logo.palette->data,30,FALSE);
     VDP_drawImageEx(BG_A,&logo,TILE_ATTR_FULL(PAL0,FALSE,FALSE,FALSE,TILE_USER_INDEX),0,0,FALSE,DMA);
     SYS_enableInts();
     Game.state=LOGO;
