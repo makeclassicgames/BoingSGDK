@@ -70,6 +70,7 @@ void initGame()
     game.ball.dx=0;
     game.player1.score=0;
     game.player2.score=0;
+    game.lastScore=2;
 }
 void updateGame(){
     updatePlayer(&game.player1);

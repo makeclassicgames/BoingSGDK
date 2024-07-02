@@ -6,6 +6,8 @@
 #include "player.h"
 
     typedef enum state{
+        INIT_LOGO,
+        LOGO,
         INIT_MENU,
         MENU,
         INIT_GAME,
@@ -23,6 +25,9 @@
         s16 dy;
         bool launched;
         bool impact;
+        bool bounced;
+        bool goalhit;
+        bool paddlehit;
     }Ball;
 
     struct 
@@ -31,9 +36,28 @@
        Player player2;
        Ball ball;
        Status state;
+       u8 lastScore;
        bool singlePlayer;
     }game;
-    
+
+    struct{
+        Sprite* menuSel1;
+        Sprite* menuSel2;
+        bool twoPlayers;
+    }menuStruct;
+
+    u16 frameCounter;
+
+    void initLogo(void);
+    void drawInitLogo(void);
+    void updateLogo(void);
+    void drawLogo(void);
+    void initMenu(void);
+    void drawInitMenu(void);
+
+    void updateMenu(void);
+    void drawMenu(void);
+
     void initGame();
 
     void updateGame();

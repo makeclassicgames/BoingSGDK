@@ -34,10 +34,10 @@ void init()
 {
     VDP_setScreenWidth320();
     JOY_init();
+    XGM2_setFMVolume(80);
+    XGM2_setPSGVolume(80);
     SPR_init();
     game.state = INIT_MENU;
-    //TODO: Change using menu
-    game.singlePlayer=TRUE;
 }
 
 void checkInputs(){
@@ -53,8 +53,18 @@ void update()
 {
     switch (game.state)
     {
+    case INIT_LOGO:
+        initLogo();
+        break;
+    case LOGO:
+        updateLogo();
+        break;
     case INIT_MENU:
+        initMenu();
+        break;
     case MENU:
+        updateMenu();
+        break;
     case INIT_GAME:
         initGame();
         break;
@@ -73,8 +83,18 @@ void draw()
 {
     switch (game.state)
     {
+    case INIT_LOGO:
+        drawInitLogo();
+        break;
+    case LOGO:
+        drawLogo();
+        break;
     case INIT_MENU:
+        drawInitMenu();
+        break;
     case MENU:
+        drawMenu();
+        break;
     case INIT_GAME:
         drawInitGame();
         game.state=LOOP_GAME;
