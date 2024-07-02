@@ -111,6 +111,12 @@ void updateGame()
 {
     switch (Game.state)
     {
+    case INIT_LOGO:
+        InitLogo();
+        break;
+    case LOGO:
+        updateLogo();
+        break;
     case INIT_MENU:
         Game.singlePlayer=FALSE;
         Menu.twoPlayers=FALSE;
@@ -264,6 +270,12 @@ void drawGame()
 {
     switch (Game.state)
     {
+    case INIT_LOGO:
+        drawInitLogo();
+        break;
+    case LOGO:
+        drawLogo();
+        break;
     case INIT_MENU:
         drawInitMenu();
         Game.state=MENU;

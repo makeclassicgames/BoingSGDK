@@ -10,6 +10,8 @@
 
 typedef enum state
 {
+    INIT_LOGO,
+    LOGO,
     INIT_MENU,
     MENU,
     INIT_GAME,
@@ -49,12 +51,20 @@ struct{
     bool twoPlayers;
 }Menu;
 
+u16 frameLogoCounter;
+
 //general Functions
 void updateGame();
 void drawGame();
 
 //InitMenu
 void drawInitMenu();
+
+void InitLogo(void);
+void drawInitLogo(void);
+
+void updateLogo(void);
+void drawLogo(void);
 
 //Init Game Functions
 void updateMenu();
